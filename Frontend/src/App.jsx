@@ -4,7 +4,6 @@ import { UserDataContext } from "./context/UserContext";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Network from "./pages/Network";
-import Notification from "./pages/Notification.jsx";
 import Profile from "./pages/Profile.jsx";
 import SignUp from "./pages/SignUp";
 
@@ -34,10 +33,6 @@ function App() {
             <Route
                 path="/profile"
                 element={userData ? <Profile /> : <Navigate to="/login" />}
-            />
-            <Route
-                path="/notification"
-                element={userData ? <Notification /> : <Navigate to="login" />}
             />
         </Routes>
     );
