@@ -5,13 +5,12 @@ import { AiFillLike } from "react-icons/ai";
 import { BiLike } from "react-icons/bi";
 import { FaRegCommentDots, FaRegThumbsUp } from "react-icons/fa";
 import { LuSendHorizontal } from "react-icons/lu";
-import { io } from "socket.io-client";
 import DP from "../assets/DP.png";
 import ConnectionButton from "../components/ConnectionButton.jsx";
 import { AuthDataContext } from "../context/AuthContext";
 import { UserDataContext } from "../context/UserContext";
+import { getSocket } from "../utils/socket.js";
 
-let socket = io("http://localhost:8000");
 export default function Post({
     id,
     author,
@@ -22,6 +21,8 @@ export default function Post({
     createdAt,
 }) {
     let { serverUrl } = useContext(AuthDataContext);
+
+    const socket = getSocket(serverUrl);
 
     let { postData, setPostData, userData } = useContext(UserDataContext);
 
