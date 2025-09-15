@@ -3,19 +3,17 @@ import { useContext, useEffect, useState } from "react";
 import { FaHandHolding } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { io } from "socket.io-client";
 import DP from "../assets/DP.png";
 import Navbar from "../components/Navbar.jsx";
 import { AuthDataContext } from "../context/AuthContext.jsx";
 import { UserDataContext } from "../context/UserContext.jsx";
-
-const socket = io("http://localhost:8000", {
-    autoConnect: true,
-});
+import { getSocket } from "../utils/socket.js";
 
 export default function Network() {
     const { serverUrl } = useContext(AuthDataContext);
     const { userData } = useContext(UserDataContext);
+
+    const socket = getSocket(serverUrl);
 
     let [showReq, setShowReq] = useState(false);
     const [requests, setRequests] = useState([]);
