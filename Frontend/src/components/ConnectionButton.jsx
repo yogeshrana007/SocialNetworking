@@ -3,16 +3,16 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { HiUserAdd } from "react-icons/hi";
 import { MdAccessTime } from "react-icons/md";
-import { io } from "socket.io-client";
 import { AuthDataContext } from "../context/AuthContext.jsx";
 import { UserDataContext } from "../context/UserContext.jsx";
-
-// Create a single persistent socket connection (ensure this file is imported only once)
-const socket = io("http://localhost:8000", { autoConnect: true });
+import { getSocket } from "../utils/socket.js";
 
 function ConnectionButton({ userId }) {
     const { serverUrl } = useContext(AuthDataContext);
     const { userData } = useContext(UserDataContext);
+
+    // Create a single persistent socket connection (ensure this file is imported only once)
+    const socket = getSocket(serverUrl);
 
     // Connection status states: "connect", "pending", "received", "disconnect"
     const [status, setStatus] = useState("connect");
