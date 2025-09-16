@@ -34,6 +34,7 @@ function App() {
                 path="/profile"
                 element={userData ? <Profile /> : <Navigate to="/login" />}
             />
+            <Route path="/profile/:id" element={<Profile />} />
         </Routes>
     );
 }
