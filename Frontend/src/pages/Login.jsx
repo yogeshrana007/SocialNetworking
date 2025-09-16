@@ -29,30 +29,25 @@ function Login() {
 
     const handleSignIn = async (e) => {
         e.preventDefault();
-
         setLoading(true);
         setErr("");
         try {
             let result = await axios.post(
                 serverUrl + "/api/auth/login",
-                formData,
-                { withCredentials: true }
+                formData
             );
-            let currentUserRes = await axios.get(
-                `${serverUrl}/api/user/currentuser`,
-                {
-                    withCredentials: true,
-                }
-            );
-            setUserData(currentUserRes.data);
 
+            // ⚡ get token and user
+            const { user, token } = result.data;
+
+            // ⚡ save token in localStorage
+            localStorage.setItem("token", token);
+
+            setUserData(user);
             navigate("/");
 
-            if (result.status === 201) {
-                setFormData({
-                    email: "",
-                    password: "",
-                });
+            if (result.status === 200) {
+                setFormData({ email: "", password: "" });
             }
             setLoading(false);
         } catch (error) {
@@ -60,6 +55,7 @@ function Login() {
             setErr(error?.response?.data?.message || "Something went wrong");
         }
     };
+
     return (
         <>
             <div className="w-full h-screen bg-white flex flex-col items-center justify-start gap-[10px]">
