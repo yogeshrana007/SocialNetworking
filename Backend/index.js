@@ -15,16 +15,36 @@ const app = express();
 let server = http.createServer(app);
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 
+const allowedOrigins = [
+    "http://localhost:5173", // local dev
+    "https://social-networking-fcet8te3d-yogesh-ranas-projects-8c9615bd.vercel.app",
+    "https://social-networking-iota.vercel.app", // current Vercel frontend
+];
+
 app.use(
     cors({
-        origin: FRONTEND_URL,
+        origin: function (origin, callback) {
+            if (!origin) return callback(null, true); // allow server/Postman requests
+            if (allowedOrigins.includes(origin)) {
+                callback(null, true); // allow this origin
+            } else {
+                callback(new Error("Not allowed by CORS"));
+            }
+        },
         credentials: true,
     })
 );
 
 export const io = new Server(server, {
     cors: {
-        origin: FRONTEND_URL,
+        origin: function (origin, callback) {
+            if (!origin) return callback(null, true);
+            if (allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error("Not allowed by CORS"));
+            }
+        },
         credentials: true,
     },
 });
