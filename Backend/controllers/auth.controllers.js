@@ -29,11 +29,9 @@ export const signUp = async (req, res) => {
                 .json({ message: "username already exist !" });
 
         if (!password || password.length < 8) {
-            return res
-                .status(400)
-                .json({
-                    message: "password must contain atleast 8 characters!!",
-                });
+            return res.status(400).json({
+                message: "password must contain atleast 8 characters!!",
+            });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -47,9 +45,9 @@ export const signUp = async (req, res) => {
         });
 
         const token = await genToken(user._id);
+        res.cookie("token", token, cookieOpts); // set auth cookie with cross-site attrs [2][1]
 
-        // ⚡ return user + token (no cookie)
-        return res.status(201).json({ user, token });
+        return res.status(201).json(user);
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "signup error" });
@@ -71,9 +69,9 @@ export const login = async (req, res) => {
             return res.status(400).json({ message: "Incorrect Password" });
 
         const token = await genToken(user._id);
+        res.cookie("token", token, cookieOpts); // send cookie for cross-origin [2][1]
 
-        // ⚡ return user + token (no cookie)
-        return res.status(200).json({ user, token });
+        return res.status(200).json(user);
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "login error" });

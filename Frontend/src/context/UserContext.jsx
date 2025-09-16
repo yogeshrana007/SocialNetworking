@@ -13,12 +13,13 @@ function UserContext({ children }) {
 
     const getCurrentUser = async () => {
         try {
-            let token = localStorage.getItem("token");
             let result = await axios.get(`${serverUrl}/api/user/currentuser`, {
-                headers: { Authorization: `Bearer ${token}` },
+                withCredentials: true,
             });
             setUserData(result.data);
+
             console.log("Fetched user data:", result.data);
+            // console.log(result);
         } catch (error) {
             setUserData(null);
             console.log("User fetch failed:", error.message);
@@ -27,10 +28,10 @@ function UserContext({ children }) {
 
     let getPost = async () => {
         try {
-            let token = localStorage.getItem("token");
             let result = await axios.get(`${serverUrl}/api/post/getpost`, {
-                headers: { Authorization: `Bearer ${token}` },
+                withCredentials: true,
             });
+            // console.log("post data : ", result);
             setPostData(result.data);
         } catch (error) {
             console.log(error);
