@@ -5,6 +5,7 @@ import { AiFillLike } from "react-icons/ai";
 import { BiLike } from "react-icons/bi";
 import { FaRegCommentDots, FaRegThumbsUp } from "react-icons/fa";
 import { LuSendHorizontal } from "react-icons/lu";
+import { Link } from "react-router-dom";
 import DP from "../assets/DP.png";
 import ConnectionButton from "../components/ConnectionButton.jsx";
 import { AuthDataContext } from "../context/AuthContext";
@@ -109,22 +110,27 @@ export default function Post({
                 {/* User info */}
                 <div className="flex justify-between">
                     <div className="flex items-start gap-3 mb-4">
-                        <img
-                            src={author.profileImage.url || DP}
-                            alt="DP"
-                            className="w-12 h-12 rounded-full object-cover border"
-                        />
-                        <div>
-                            <div className="font-semibold text-[16px]">
-                                {author.firstName} {author.lastName}
+                        <Link
+                            to={`/profile/${author._id}`}
+                            className="flex items-start gap-3"
+                        >
+                            <img
+                                src={author.profileImage.url || DP}
+                                alt="DP"
+                                className="w-12 h-12 rounded-full object-cover border"
+                            />
+                            <div>
+                                <div className="font-semibold text-[16px]">
+                                    {author.firstName} {author.lastName}
+                                </div>
+                                <div className="text-[12px] text-gray-500">
+                                    {author.headline}
+                                </div>
+                                <div className="text-[11px] text-gray-400">
+                                    {moment(createdAt).fromNow()}
+                                </div>
                             </div>
-                            <div className="text-[12px] text-gray-500">
-                                {author.headline}
-                            </div>
-                            <div className="text-[11px] text-gray-400">
-                                {moment(createdAt).fromNow()}
-                            </div>
-                        </div>
+                        </Link>
                     </div>
                     {userData.user._id != author._id && (
                         <div className="">
