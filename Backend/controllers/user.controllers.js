@@ -45,7 +45,7 @@ export const updateProfile = async (req, res) => {
         }
 
         if (Array.isArray(skills)) {
-            skills = skills.flat().map((skill) => skill.toLowerCase().trim());
+            skills = skills.flat().map((skill) => skill.trim());
         } else {
             skills = [];
         }
@@ -93,5 +93,19 @@ export const updateProfile = async (req, res) => {
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "update profile error" });
+    }
+};
+
+export const getUserById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findById(id).select("-password");
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        return res.status(200).json({ user });
+    } catch (error) {
+        console.error("Error fetching user by ID:", error);
+        return res.status(500).json({ message: "Server error" });
     }
 };
