@@ -47,9 +47,9 @@ export const signUp = async (req, res) => {
         });
 
         const token = await genToken(user._id);
-        res.cookie("token", token, cookieOpts); // set auth cookie with cross-site attrs [2][1]
 
-        return res.status(201).json(user);
+        // ⚡ return user + token (no cookie)
+        return res.status(201).json({ user, token });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "signup error" });
@@ -71,9 +71,9 @@ export const login = async (req, res) => {
             return res.status(400).json({ message: "Incorrect Password" });
 
         const token = await genToken(user._id);
-        res.cookie("token", token, cookieOpts); // send cookie for cross-origin [2][1]
 
-        return res.status(200).json(user);
+        // ⚡ return user + token (no cookie)
+        return res.status(200).json({ user, token });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "login error" });
