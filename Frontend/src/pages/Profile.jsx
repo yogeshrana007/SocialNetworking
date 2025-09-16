@@ -95,9 +95,11 @@ function Profile() {
                                     </button>
                                 )}
 
-                                {/* Show ConnectionButton if it's someone else */}
-                                {id && userData.user._id !== id && (
-                                    <ConnectionButton userId={id} />
+                                {/* Show ConnectionButton only if it's someone else's profile */}
+                                {profileUser._id !== userData.user._id && (
+                                    <ConnectionButton
+                                        userId={profileUser._id}
+                                    />
                                 )}
                             </div>
                         </div>
