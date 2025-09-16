@@ -18,6 +18,7 @@ function Navbar() {
 
     const handleSignOut = async () => {
         try {
+            setShowPopup(false);
             let result = await axios.get(serverUrl + "/api/auth/logout", {
                 withCredentials: true,
             });
@@ -36,7 +37,10 @@ function Navbar() {
                 {/* left div */}
                 <div className="flex justify-center items-center gap-[10px]  ">
                     <div
-                        onClick={() => setActiveSearch(false)}
+                        onClick={() => {
+                            setShowPopup(false);
+                            setActiveSearch(false);
+                        }}
                         className="cursor-pointer"
                     >
                         <img
@@ -49,7 +53,10 @@ function Navbar() {
                     {!activeSearch && (
                         <div>
                             <IoSearchSharp
-                                onClick={() => setActiveSearch(true)}
+                                onClick={() => {
+                                    setShowPopup(false);
+                                    setActiveSearch(true);
+                                }}
                                 className="w-[22px] h-[22px] text-gray-700 lg:hidden"
                             />
                         </div>
@@ -92,7 +99,10 @@ function Navbar() {
                             </div>
                             <button
                                 className="w-[85%] h-[40px] border-2 border-[#2dc0ff] text-[#2dc0ff] rounded-full"
-                                onClick={() => navigate("/profile")}
+                                onClick={() => {
+                                    setShowPopup(false);
+                                    navigate("/profile");
+                                }}
                             >
                                 View Profile
                             </button>
@@ -103,7 +113,10 @@ function Navbar() {
                             {/* My Network */}
                             <div
                                 className=" w-full flex items-center justify-start text-gray-600 hover:text-gray-900 pl-[20px] gap-[10px] cursor-pointer"
-                                onClick={() => navigate("/network")}
+                                onClick={() => {
+                                    setShowPopup(false);
+                                    navigate("/network");
+                                }}
                             >
                                 <FaUserGroup className="w-[22px] h-[22px] " />
                                 <div>My Networks</div>
@@ -121,7 +134,10 @@ function Navbar() {
                     {/* Home icon */}
                     <div
                         className=" lg:flex flex-col items-center justify-center text-[14px] text-gray-600 hover:text-gray-900 hidden cursor-pointer"
-                        onClick={() => navigate("/")}
+                        onClick={() => {
+                            setShowPopup(false);
+                            navigate("/");
+                        }}
                     >
                         <TiHome className="w-[22px] h-[22px] " />
                         <div>Home</div>
@@ -130,7 +146,10 @@ function Navbar() {
                     {/* My Network */}
                     <div
                         className=" md:flex flex-col items-center text-[14px] justify-center text-gray-600 hover:text-gray-900 hidden cursor-pointer"
-                        onClick={() => navigate("/network")}
+                        onClick={() => {
+                            setShowPopup(false);
+                            navigate("/network");
+                        }}
                     >
                         <FaUserGroup className="w-[22px] h-[22px] " />
                         <div>My Networks</div>
