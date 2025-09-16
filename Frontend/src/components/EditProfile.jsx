@@ -302,6 +302,7 @@ function EditProfile() {
                                 >
                                     {skill}
                                     <button
+                                        type="button"
                                         onClick={(e) => {
                                             e.preventDefault();
                                             setFormData({
@@ -333,21 +334,25 @@ function EditProfile() {
 
                                     if (
                                         trimmedSkill !== "" &&
-                                        !formData.skills.includes(
-                                            trimmedSkill.toLowerCase()
+                                        !formData.skills.some(
+                                            (skill) =>
+                                                skill.toLowerCase() ===
+                                                trimmedSkill.toLowerCase()
                                         )
                                     ) {
                                         setFormData({
                                             ...formData,
                                             skills: [
                                                 ...formData.skills,
-                                                trimmedSkill.toLowerCase(),
+                                                trimmedSkill,
                                             ],
                                         });
                                         setNewSkill("");
                                     } else if (
-                                        formData.skills.includes(
-                                            trimmedSkill.toLowerCase()
+                                        formData.skills.some(
+                                            (skill) =>
+                                                skill.toLowerCase() ===
+                                                trimmedSkill.toLowerCase()
                                         )
                                     ) {
                                         alert("Skill already exists!");
