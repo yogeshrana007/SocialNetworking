@@ -34,10 +34,12 @@ export const signUp = async (req, res) => {
         let token = await genToken(user._id);
         res.cookie("token", token, {
             httpOnly: true,
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-            sameSite: "strict",
-            secure: process.env.NODE_ENVIRONMENT === "production",
+            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+            sameSite:
+                process.env.NODE_ENVIRONMENT === "production" ? "None" : "Lax",
+            secure: process.env.NODE_ENVIRONMENT === "production", // true on prod (HTTPS)
         });
+
         return res.status(201).json(user);
     } catch (error) {
         console.log(error);
@@ -64,10 +66,12 @@ export const login = async (req, res) => {
         let token = await genToken(user._id);
         res.cookie("token", token, {
             httpOnly: true,
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-            sameSite: "Strict",
-            secure: process.env.NODE_ENVIRONMENT === "production",
+            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+            sameSite:
+                process.env.NODE_ENVIRONMENT === "production" ? "None" : "Lax",
+            secure: process.env.NODE_ENVIRONMENT === "production", // true on prod (HTTPS)
         });
+
         return res.status(200).json(user);
     } catch (error) {
         console.log(error);
