@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { FaHandHolding } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { Link } from "react-router-dom";
 import DP from "../assets/DP.png";
 import Navbar from "../components/Navbar.jsx";
 import { AuthDataContext } from "../context/AuthContext.jsx";
@@ -151,25 +152,27 @@ export default function Network() {
                                         key={req._id}
                                         className="flex items-center justify-between p-2 border-b bg-white px-[40px]"
                                     >
-                                        <div className="flex items-center gap-2">
-                                            <img
-                                                src={
-                                                    req.sender?.profileImage
-                                                        ?.url || DP
-                                                }
-                                                alt="profile"
-                                                className="w-10 h-10 rounded-full object-cover"
-                                            />
-                                            <div>
-                                                <p className="font-semibold">
-                                                    {req.sender?.firstName}{" "}
-                                                    {req.sender?.lastName}
-                                                </p>
-                                                <p className="text-sm text-gray-600">
-                                                    {req.sender?.headline}
-                                                </p>
+                                        <Link to={`/profile/${req.sender._id}`}>
+                                            <div className="flex items-center gap-2">
+                                                <img
+                                                    src={
+                                                        req.sender?.profileImage
+                                                            ?.url || DP
+                                                    }
+                                                    alt="profile"
+                                                    className="w-10 h-10 rounded-full object-cover"
+                                                />
+                                                <div>
+                                                    <p className="font-semibold">
+                                                        {req.sender?.firstName}{" "}
+                                                        {req.sender?.lastName}
+                                                    </p>
+                                                    <p className="text-sm text-gray-600">
+                                                        {req.sender?.headline}
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </Link>
                                         <div className="flex gap-2">
                                             <button
                                                 onClick={() =>
@@ -228,25 +231,27 @@ export default function Network() {
                                         key={user._id}
                                         className="flex items-center bg-gray-50 justify-between p-2 border-b px-[40px] hover:bg-slate-100"
                                     >
-                                        <div className="flex items-center gap-2">
-                                            <img
-                                                src={
-                                                    user?.profileImage?.url ||
-                                                    DP
-                                                }
-                                                alt="dp"
-                                                className="w-10 h-10 rounded-full object-cover"
-                                            />
-                                            <div>
-                                                <p className="font-semibold">
-                                                    {user.firstName}{" "}
-                                                    {user.lastName}
-                                                </p>
-                                                <p className="text-sm text-gray-600">
-                                                    {user?.headline}
-                                                </p>
+                                        <Link to={`/profile/${user._id}`}>
+                                            <div className="flex items-center gap-2">
+                                                <img
+                                                    src={
+                                                        user?.profileImage
+                                                            ?.url || DP
+                                                    }
+                                                    alt="dp"
+                                                    className="w-10 h-10 rounded-full object-cover"
+                                                />
+                                                <div>
+                                                    <p className="font-semibold">
+                                                        {user.firstName}{" "}
+                                                        {user.lastName}
+                                                    </p>
+                                                    <p className="text-sm text-gray-600">
+                                                        {user?.headline}
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </Link>
                                         <button
                                             onClick={() =>
                                                 handleRemoveConnection(user._id)
