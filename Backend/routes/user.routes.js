@@ -2,6 +2,7 @@ import express from "express";
 import {
     getCurrentUser,
     getUserById,
+    search,
     updateProfile,
 } from "../controllers/user.controllers.js";
 import isAuth from "../middlewares/isAuth.js";
@@ -19,6 +20,8 @@ userRouter.put(
     ]),
     updateProfile
 );
+
+userRouter.get("/search", isAuth, search);
 
 userRouter.get("/:id", isAuth, getUserById);
 
