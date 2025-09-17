@@ -1,6 +1,6 @@
-import { CloudinaryStorage } from "@fluidjs/multer-cloudinary";
 import { v2 as cloudinary } from "cloudinary";
 import dotenv from "dotenv";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 
 dotenv.config();
 
