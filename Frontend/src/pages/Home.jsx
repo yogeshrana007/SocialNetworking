@@ -22,6 +22,8 @@ function Home() {
         getPost,
         showPopup,
         setShowPopup,
+        showSearch,
+        setShowSearch,
     } = useContext(UserDataContext);
 
     let { serverUrl } = useContext(AuthDataContext);
@@ -169,7 +171,10 @@ function Home() {
                 {/* Main Layout */}
                 <div
                     className="flex flex-col lg:flex-row items-start justify-center w-full max-w-[1200px] gap-4 p-4 mt-[65px]"
-                    onClick={() => setShowPopup(false)}
+                    onClick={() => {
+                        setShowPopup(false);
+                        setShowSearch(false);
+                    }}
                 >
                     {/* Left Panel - Profile Card */}
                     <div className="w-full lg:w-1/4 bg-white shadow rounded-xl overflow-hidden">
