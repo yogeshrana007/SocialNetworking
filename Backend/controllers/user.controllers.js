@@ -26,6 +26,7 @@ export const uploadProfileImage = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
     try {
+        console.log("req.files ===>", req.files);
         const userId = req.userId;
         let {
             firstName,
@@ -75,7 +76,7 @@ export const updateProfile = async (req, res) => {
             };
         }
 
-        let user = await User.findByIdAndUpdate(userId, {
+        let updateData = {
             firstName,
             lastName,
             userName,
@@ -85,10 +86,16 @@ export const updateProfile = async (req, res) => {
             skills,
             education,
             experience,
-            profileImage,
-            coverImage,
-        }).select("-password");
+        };
+        // Only add images if uploaded
+        if (profileImage) updateData.profileImage = profileImage;
+        if (coverImage) updateData.coverImage = coverImage;
 
+        let user = await User.findByIdAndUpdate(
+            userId,
+            { $set: updateData },
+            { new: true } // return updated doc
+        ).select("-password");
         return res.status(200).json(user);
     } catch (error) {
         console.log(error);
@@ -107,5 +114,25 @@ export const getUserById = async (req, res) => {
     } catch (error) {
         console.error("Error fetching user by ID:", error);
         return res.status(500).json({ message: "Server error" });
+    }
+};
+
+export const search = async (req, res) => {
+    try {
+        let { query } = req.query;
+        if (!query) {
+            return res.status(400).json({ message: "query is required" });
+        }
+        let users = await User.find({
+            $or: [
+                { firstName: { $regex: query, $options: "i" } },
+                { lastName: { $regex: query, $options: "i" } },
+                { userName: { $regex: query, $options: "i" } },
+            ],
+        });
+        return res.status(200).json(users);
+    } catch (error) {
+        console.error("Error seach user", error);
+        return res.status(500).json({ message: "search error" });
     }
 };
