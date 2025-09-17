@@ -10,6 +10,7 @@ function UserContext({ children }) {
     let [showEdit, setShowEdit] = useState(false);
     let [showPopup, setShowPopup] = useState(false);
     let [postData, setPostData] = useState([]);
+    let [showSearch, setShowSearch] = useState(false);
 
     const getCurrentUser = async () => {
         try {
@@ -54,6 +55,8 @@ function UserContext({ children }) {
         postData,
         setPostData,
         getPost,
+        showSearch,
+        setShowSearch,
     };
     return (
         <UserDataContext.Provider value={value}>
