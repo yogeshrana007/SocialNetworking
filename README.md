@@ -1,10 +1,8 @@
-# SocialNetworking (LinkedIn Clone)
+# SocialNetworking
 
 ## Overview
 
 SocialNetworking is a full-stack web application that allows users to create profiles, connect with other users, and interact in a social network environment. The platform supports real-time updates for connections, likes, and comments, giving users an interactive experience similar to professional networking sites.
-
-**Live Demo:** [SocialNetworking Live](https://socialnetworking-1.onrender.com)
 
 ## Features
 
